@@ -10,7 +10,7 @@ export default function Home() {
       {/* 1. Header Section (Amelia Style: Big Serif Typography) */}
       <header className="mb-16">
         <h1 className="font-serif text-5xl md:text-6xl text-stone-800 font-bold tracking-tight mb-4">
-          Your Name.
+          Zakir Neji
         </h1>
         <p className="text-xl text-stone-500 font-sans max-w-2xl">
           Digital gardener, developer, and data hoarder. 
@@ -59,8 +59,8 @@ export default function Home() {
           <div className="bg-paper p-6 rounded-lg border border-stone-100">
              <h4 className="font-bold text-stone-500 uppercase tracking-widest text-xs mb-4">Currently</h4>
              <ul className="text-sm space-y-3 text-stone-600">
-               <li>📖 Reading: <strong>Dune Messiah</strong></li>
-               <li>🎵 Listening: <strong>Ambient Works 85-92</strong></li>
+               <li>📖 Reading: <strong>Think - Simon Blackburn</strong></li>
+               <li>🎵 Listening: <strong>Up - Earthgang</strong></li>
                <li>🔨 Building: <strong>This website</strong></li>
              </ul>
           </div>
