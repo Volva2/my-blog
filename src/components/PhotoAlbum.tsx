@@ -9,14 +9,14 @@ type PhotoAlbumProps = {
 
 export default function PhotoAlbum({ images, columns = 2 }: PhotoAlbumProps) {
   return (
-    <div className={`grid gap-4 my-8 ${columns === 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-1 md:grid-cols-2'}`}>
+    <div className={`grid my-8 ${columns === 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-1 md:grid-cols-2'}`}>
       {images.map((img, index) => (
-        <div key={index} className="relative group overflow-hidden rounded-lg">
+        <div key={index} className="relative group overflow-hidden">
           <Image
             src={img.src}
             alt={img.alt}
-            width={600}
-            height={400}
+            width={900}
+            height={600}
             className="object-cover w-full h-full hover:scale-105 transition-transform duration-300 ease-in-out"
           />
         </div>

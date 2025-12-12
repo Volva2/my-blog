@@ -30,21 +30,26 @@ export default function Home() {
 
           <ul className="space-y-8">
             {allPostsData.map(({ id, date, title, description }) => (
-              <li key={id} className="group cursor-pointer">
-                <Link href={`/posts/${id}`} className="block">
-                  <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-1">
-                    <h3 className="text-2xl font-serif text-stone-800 group-hover:text-accent transition-colors duration-200">
-                      {title}
-                    </h3>
-                    <time className="font-mono text-xs text-stone-400 shrink-0 mt-1 md:mt-0">
-                      {date}
-                    </time>
-                  </div>
-                  <p className="text-stone-600 leading-relaxed max-w-prose">
-                    {description}
-                  </p>
-                </Link>
-              </li>
+              <li key={id} className="group mb-8">
+  <Link href={`/posts/${id}`} className="block">
+    <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-1">
+      {/* group-hover:underline -> Underlines when you hover the parent <li>
+         decoration-accent -> Uses your custom accent color
+         decoration-2 -> Makes the line thicker
+         underline-offset-4 -> Pushes the line down for readability
+      */}
+      <h3 className="text-2xl font-serif text-stone-800 transition-colors group-hover:underline decoration-accent decoration-2 underline-offset-4">
+        {title}
+      </h3>
+      <time className="font-mono text-xs text-stone-400 shrink-0 mt-1 md:mt-0">
+        {date}
+      </time>
+    </div>
+    <p className="text-stone-600 leading-relaxed max-w-prose">
+      {description}
+    </p>
+  </Link>
+</li>
             ))}
           </ul>
         </section>
