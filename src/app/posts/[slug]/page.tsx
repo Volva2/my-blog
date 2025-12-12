@@ -3,10 +3,13 @@ import path from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
+import Image from 'next/image';
+
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
+import PhotoAlbum from '@/components/PhotoAlbum'
 
 export async function generateStaticParams() {
   const postsDirectory = path.join(process.cwd(), 'content/posts');
@@ -46,6 +49,11 @@ export default async function Post({ params }: Props) {
     keepBackground: true,
   };
 
+  const components = {
+    PhotoAlbum, // Register it
+    Image,
+  };
+
   return (
     <article className="max-w-3xl mx-auto px-6 py-12">
       <div className="mb-8">
@@ -77,7 +85,8 @@ export default async function Post({ params }: Props) {
 
       <div className="prose prose-stone prose-lg prose-headings:font-serif prose-a:text-accent hover:prose-a:text-red-600">
         <MDXRemote 
-          source={content} 
+          source={content}
+          components={components}
           options={{
             mdxOptions: {
               rehypePlugins: [
