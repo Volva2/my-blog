@@ -3,6 +3,10 @@ import path from 'path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
+import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+
 
 export async function generateStaticParams() {
   const postsDirectory = path.join(process.cwd(), 'content/posts');
@@ -36,6 +40,12 @@ export default async function Post({ params }: Props) {
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { content, data } = matter(fileContents);
 
+  // Define the Highlight Options
+  const options = {
+    theme: 'github-dark', // or 'one-dark-pro', 'dracula', etc.
+    keepBackground: true,
+  };
+
   return (
     <article className="max-w-3xl mx-auto px-6 py-12">
       <div className="mb-8">
@@ -66,8 +76,20 @@ export default async function Post({ params }: Props) {
       </header>
 
       <div className="prose prose-stone prose-lg prose-headings:font-serif prose-a:text-accent hover:prose-a:text-red-600">
-        <MDXRemote source={content} />
+        <MDXRemote 
+          source={content} 
+          options={{
+            mdxOptions: {
+              rehypePlugins: [
+                rehypeSlug,
+                [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+                [rehypePrettyCode, options],
+              ],
+            },
+          }}
+        />
       </div>
     </article>
   );
 }
+

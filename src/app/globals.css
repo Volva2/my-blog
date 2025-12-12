@@ -24,3 +24,29 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Code Block Styling */
+pre {
+  @apply overflow-x-auto rounded-lg p-4 mb-4 border border-stone-200;
+  /* Make sure it sits above the background */
+  position: relative; 
+}
+
+code {
+  /* Override Tailwind's default backticks around inline code */
+  @apply font-mono text-sm;
+}
+
+/* Remove the annoying backticks Tailwind adds to inline code */
+.prose :where(code):not(:where([class~="not-prose"] *))::before {
+  content: "";
+}
+.prose :where(code):not(:where([class~="not-prose"] *))::after {
+  content: "";
+}
+
+/* Optional: Style the line numbers if you enable them later */
+span[data-line] {
+  display: block;
+  padding: 0 0.5rem;
+}
