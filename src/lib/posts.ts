@@ -2,7 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
+// DEBUG 1: Print the current working directory
+console.log("Current Working Directory:", process.cwd());
+
 const postsDirectory = path.join(process.cwd(), 'content/posts');
+
+// DEBUG 2: Print the target path
+console.log("Target Post Directory:", postsDirectory);
 
 export type PostData = {
   id: string;
@@ -13,35 +19,30 @@ export type PostData = {
 };
 
 export function getSortedPostsData() {
-  // Create directory if it doesn't exist (prevents crash on fresh clone)
+  // Check if directory exists
   if (!fs.existsSync(postsDirectory)) {
-    fs.mkdirSync(postsDirectory, { recursive: true });
+    console.error(`ERROR: Directory not found at ${postsDirectory}`);
+    return [];
   }
 
   const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    // Remove ".mdx" from file name to get id
-    const id = fileName.replace(/\.mdx$/, '');
+  
+  // DEBUG 3: Print found files
+  console.log("Found Files:", fileNames);
 
-    // Read markdown file as string
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const allPostsData = fileNames
+    .filter(fileName => fileName.endsWith('.mdx')) // Filter non-MDX files
+    .map((fileName) => {
+      const id = fileName.replace(/\.mdx$/, '');
+      const fullPath = path.join(postsDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const matterResult = matter(fileContents);
 
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
+      return {
+        id,
+        ...matterResult.data,
+      } as PostData;
+    });
 
-    return {
-      id,
-      ...matterResult.data,
-    } as PostData;
-  });
-
-  // Sort posts by date
-  return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });
+  return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
