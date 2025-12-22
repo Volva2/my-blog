@@ -2,22 +2,28 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-// DEBUG 1: Print the current working directory
+// Print the current working directory
 console.log("Current Working Directory:", process.cwd());
 
 const postsDirectory = path.join(process.cwd(), 'content/posts');
 
-// DEBUG 2: Print the target path
+// Print the target path
 console.log("Target Post Directory:", postsDirectory);
 
 export type PostData = {
   id: string;
+  type: string;
   date: string;
   title: string;
+  cover?: string;
   description?: string;
   tags?: string[];
 };
 
+/**
+ * 
+ * @returns An array of 
+ */
 export function getSortedPostsData() {
   // Check if directory exists
   if (!fs.existsSync(postsDirectory)) {
@@ -25,19 +31,21 @@ export function getSortedPostsData() {
     return [];
   }
 
+
   const fileNames = fs.readdirSync(postsDirectory);
   
-  // DEBUG 3: Print found files
-  console.log("Found Files:", fileNames);
+  // Print found files
+  // console.log("Found Files:", fileNames);
 
   const allPostsData = fileNames
     .filter(fileName => fileName.endsWith('.mdx')) // Filter non-MDX files
-    .map((fileName) => {
+    .map( fileName => {
       const id = fileName.replace(/\.mdx$/, '');
       const fullPath = path.join(postsDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, 'utf8');
-      const matterResult = matter(fileContents);
+      const fileContents = fs.readFileSync(fullPath, 'utf8'); // returns string/buffer of file contents
+      const matterResult = matter(fileContents); // gets yaml
 
+      // returns a new array of all the data
       return {
         id,
         ...matterResult.data,
