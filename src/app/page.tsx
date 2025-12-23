@@ -10,7 +10,7 @@ export default function Home() {
     <main className="min-h-screen max-w-6xl mx-auto px-6 py-12 md:py-20">
       {/* 1. Header Section (Amelia Style: Big Serif Typography) */}
       <header className="mb-16">
-        <h1 className="font-serif text-5xl md:text-6xl text-stone-800 font-bold tracking-tight mb-4 no-break">
+        <h1 className="font-serif text-7xl text-stone-800 font-bold tracking-tight mb-4 no-break">
           Zakir Neji;
         </h1>
         <p className="font-serif font-bold text-3xl max-w-3xl no-break"> a dumb hoomans blog</p>
