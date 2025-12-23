@@ -10,12 +10,10 @@ export default function Home() {
     <main className="min-h-screen max-w-6xl mx-auto px-6 py-12 md:py-20">
       {/* 1. Header Section (Amelia Style: Big Serif Typography) */}
       <header className="mb-16">
-        <h1 className="font-serif text-5xl md:text-6xl text-stone-800 font-bold tracking-tight mb-4">
-          Zakir Neji
+        <h1 className="font-serif text-5xl md:text-6xl text-stone-800 font-bold tracking-tight mb-4 no-break">
+          Zakir Neji;
         </h1>
-        <p className="text-xl text-stone-500 font-sans max-w-2xl">
-          Dumb Hooman
-        </p>
+        <p className="font-serif font-bold text-3xl max-w-3xl no-break"> a dumb hoomans blog</p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
@@ -94,16 +92,31 @@ export default function Home() {
              <span className="h-px bg-stone-300 flex-1"></span>
           </div>
 
-          <ul className="space-y-12">
-            {allBookData.map(({ id, date, title, description, cover}) => (
-              <li key={id} className="group mb-8">
-                <Link href={`/posts/${id}`} className="block">
-                  <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-1">
-                      <img src={`/images/book_covers/${cover}`} className='rounded-md transition-transform duration-300 transform hover:scale-110' alt={title} />
-                  </div>
-                </Link>
-              </li>
-            ))}
+          <ul className="space-y-12 flex flex-wrap">
+            {allBookData.map(({ id, date, title, description, cover}, index) => {
+              if (index === 0){ return (
+                <li key={id} className="group m-8 w-80">
+                  <Link href={`https://www.google.com/search?q=${id.replaceAll("_", " ")}`} className="block">
+                    <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-1">
+                        <img src={`/images/book_covers/${cover}`} className='rounded-md w-80 transition-transform duration-300 transform hover:scale-110' alt={title} />
+                    </div>
+                    <p>{date}</p>
+                    <p>{description}</p>
+                  </Link>
+                </li>
+              )}
+              else{return (
+                <li key={id} className="group m-8 w-35">
+                  <Link href={`/posts/${id}`} className="block">
+                    <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-1">
+                        <img src={`/images/book_covers/${cover}`} className='rounded-md w-40 transition-transform duration-300 transform hover:scale-110' alt={title} />
+                    </div>
+                    <p>{date}</p>
+                    <p>{description}</p>
+                  </Link>
+                </li>
+              )}
+            })}
           </ul>
         </section>
       </div>

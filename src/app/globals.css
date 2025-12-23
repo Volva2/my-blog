@@ -58,3 +58,7 @@ span[data-line] {
   display: block;
   padding: 0 0.5rem;
 }
+
+.no-break{
+  display: inline;
+}
